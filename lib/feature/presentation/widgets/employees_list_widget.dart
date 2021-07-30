@@ -18,6 +18,7 @@ class EmployeesList extends StatefulWidget {
 class _EmployeesListState extends State<EmployeesList> {
   final scrollController = ScrollController();
   List<EmployeeEntity> employees = [];
+  List<String> accesebility = [];
   void setupScrollController(BuildContext context) {
     BlocProvider.of<GetEmployeesBloc>(context);
     scrollController.addListener(() {
@@ -40,6 +41,7 @@ class _EmployeesListState extends State<EmployeesList> {
         return _loadingIndicator();
       } else if (state is EmployeesLoaded) {
         employees = state.employeeList;
+        accesebility = state.accesebility;
       } else if (state is EmployeesLoadingError) {
         return Container(
           child: Column(
@@ -83,6 +85,7 @@ class _EmployeesListState extends State<EmployeesList> {
                     return Dismissible(
                       child: EmployeeCard(
                         employee: employees[index],
+                        accesebility: accesebility[index],
                       ),
                       key: ValueKey<EmployeeEntity>(employees[index]),
                       onDismissed: (DismissDirection direction) {

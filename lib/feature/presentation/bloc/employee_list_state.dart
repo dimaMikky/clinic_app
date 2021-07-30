@@ -14,8 +14,9 @@ class EmployeesLoading extends GetEmployeesState {}
 
 class EmployeesLoaded extends GetEmployeesState {
   final List<EmployeeEntity> employeeList;
+  final List<String> accesebility;
 
-  EmployeesLoaded({required this.employeeList});
+  EmployeesLoaded({required this.accesebility, required this.employeeList});
 
   @override
   List<Object?> get props => [employeeList];

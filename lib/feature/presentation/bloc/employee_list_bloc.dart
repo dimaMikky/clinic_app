@@ -10,13 +10,18 @@ class GetEmployeesBloc extends Bloc<GetEmployeesEvent, GetEmployeesState> {
 
   @override
   Stream<GetEmployeesState> mapEventToState(GetEmployeesEvent event) async* {
+    List<String> accesebility = [];
     if (event is GetEmployees) {
       yield EmployeesLoading();
       final failureOrEmployee = await getAllEmployees.getAllEmployeesFromRepo();
       yield failureOrEmployee.fold(
           (failure) =>
               EmployeesLoadingError(message: _mapFailureToMessage(failure)),
-          (employee) => EmployeesLoaded(employeeList: employee));
+          (employee) {
+        getAccebilityInfo(employee, accesebility);
+        return EmployeesLoaded(
+            employeeList: employee, accesebility: accesebility);
+      });
     }
   }
 }
@@ -27,5 +32,15 @@ String _mapFailureToMessage(Failure failure) {
       return 'Server Failure';
     default:
       return 'Unexpected Error';
+  }
+}
+
+void getAccebilityInfo(employee, accesebility) {
+  for (var i = 1; i <= employee.length; i++) {
+    if (i % 3 == 0) {
+      print(1);
+      accesebility.add('online');
+    } else
+      accesebility.add('offline');
   }
 }

@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 
 class EmployeeCard extends StatelessWidget {
   final EmployeeEntity employee;
-  const EmployeeCard({Key? key, required this.employee}) : super(key: key);
+  final String accesebility;
+  const EmployeeCard(
+      {Key? key, required this.employee, required this.accesebility})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +72,30 @@ class EmployeeCard extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
                     ),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Availability:',
+                        style: TextStyle(color: AppColors.greyColor),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Container(
+                        height: 8,
+                        width: 8,
+                        decoration: BoxDecoration(
+                          color: accesebility == 'online'
+                              ? Colors.green
+                              : Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
